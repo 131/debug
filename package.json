@@ -1,0 +1,24 @@
+{
+  "name": "debug",
+  "version": "2.3.2",
+  "description": "",
+  "main": "./node.js",
+  "scripts": {
+    "mocha": "mocha",
+    "test": "npm run eslint && npm run mocha",
+    "eslint": "eslint index.js node.js browser.js test"
+  },
+  "author": "Francois Leurent <131.js@cloudyks.org>",
+  "browser": "./browser.js",
+  "license": "ISC",
+  "dependencies": {
+    "ms": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-ivs": "^1.3.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.1.2",
+    "nyc": "^13.0.1",
+    "nyks": "^5.10.1"
+  }
+}
