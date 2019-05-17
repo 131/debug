@@ -6,7 +6,7 @@ const debug = require('./debug');
 if(!process.env.DEBUG_FD) {
 
   if(process.env.DEBUG_FILE)
-    process.env.DEBUG_FD = fs.openSync(process.env.DEBUG_FILE, "w");
+    process.env.DEBUG_FD = fs.openSync(process.env.DEBUG_FILE, "a+");
 }
 
 var fd = parseInt(process.env.DEBUG_FD, 10) || 2;
