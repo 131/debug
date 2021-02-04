@@ -21,6 +21,9 @@ exports.output  = function () {};
 const format   = process.env.DEBUG_FORMAT || ":time :namespace :body"; // :diff
 
 
+if("DEBUG_INSPECT_BREAKLENGTH" in process.env) {
+  util.inspect.defaultOptions.breakLength = parseInt(process.env.DEBUG_INSPECT_BREAKLENGTH) || Infinity;
+}
 
 
 
