@@ -10,16 +10,16 @@ const tmppath = require('nyks/fs/tmppath');
 describe("Testing subprocess", function() {
 
   var mock  = path.join(__dirname, 'mock', 'main.js');
-  var trace = tmppath();
-  var env   = Object.assign({}, process.env, {
-    DEBUG        : 'mock',
-    DEBUG_FORMAT : ':namespace :body',
-    DEBUG_FILE   : trace
-  });
 
   it("spawn a stuff and check output (pipe output)", function(done) {
+    let trace = tmppath();
+    let env   = {
+      DEBUG        : 'mock',
+      DEBUG_FORMAT : ':namespace :body',
+      DEBUG_FILE   : trace
+    };
 
-    var child = spawn("node", [mock], {env}); //stdio : 'inherit'
+    let child = spawn("node", [mock], {env}); //stdio : 'inherit'
 
     child.on('exit', function() {
       var body = fs.readFileSync(trace, 'utf-8');
@@ -30,14 +30,15 @@ describe("Testing subprocess", function() {
   });
 
   it("spawn a stuff and check output (tty output)", function(done) {
+    let trace = tmppath();
 
-    env = Object.assign({}, process.env, {
+    let env = {
       DEBUG        : '*',
       DEBUG_FORMAT : '(:namespace) :body',
       DEBUG_FILE   : trace
-    });
+    };
 
-    var child = spawn("node", [mock], {env, stdio : 'inherit'});
+    let child = spawn("node", [mock], {env, stdio : 'inherit'});
 
     child.on('exit', function() {
       var body = fs.readFileSync(trace, 'utf-8');

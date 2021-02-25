@@ -11,7 +11,7 @@ if(!process.env.DEBUG_FD) {
 
 var fd = parseInt(process.env.DEBUG_FD, 10) || 2;
 
-debug.output = (buf) => fs.writeSync(fd, buf + "\n");
+debug.output = (buf) => fs.write(fd, buf + "\n", Function.prototype);
 
 
 module.exports = debug;

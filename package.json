@@ -1,12 +1,12 @@
 {
   "name": "debug",
-  "version": "4.1.1",
+  "version": "0.7.4",
   "description": "",
   "main": "./node.js",
   "scripts": {
     "mocha": "mocha",
     "test": "npm run eslint && npm run mocha",
-    "eslint": "eslint index.js node.js browser.js test"
+    "eslint": "eslint ."
   },
   "author": "Francois Leurent <131.js@cloudyks.org>",
   "browser": "./browser.js",

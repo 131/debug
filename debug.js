@@ -1,7 +1,6 @@
 "use strict";
 
 const humanize = require('ms');
-const tty = require('tty');
 const util = require('util');
 
 
@@ -22,6 +21,7 @@ const format   = process.env.DEBUG_FORMAT || ":time :namespace :body"; // :diff
 
 
 if("DEBUG_INSPECT_BREAKLENGTH" in process.env) {
+  //set as global, it is fine
   util.inspect.defaultOptions.breakLength = parseInt(process.env.DEBUG_INSPECT_BREAKLENGTH) || Infinity;
 }
 
@@ -69,14 +69,14 @@ function enable(namespaces) {
   var split = (namespaces || '').split(/[\s,]+/);
   var len = split.length;
 
-  for (var i = 0; i < len; i++) {
-    if (!split[i]) continue; // ignore empty strings
+  for(var i = 0; i < len; i++) {
+    if(!split[i]) continue; // ignore empty strings
     namespaces = split[i].replace(/[\\^$+?.()|[\]{}]/g, '\\$&').replace(/\*/g, '.*?');
-    if (namespaces[0] === '-') {
+    if(namespaces[0] === '-')
       skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-    } else {
+    else
       names.push(new RegExp('^' + namespaces + '$'));
-    }
+
   }
 }
 
@@ -89,15 +89,15 @@ function disable() {
 
 function enabled(name) {
   var i, len;
-  for (i = 0, len = skips.length; i < len; i++) {
-    if (skips[i].test(name)) {
+  for(i = 0, len = skips.length; i < len; i++) {
+    if(skips[i].test(name))
       return false;
-    }
+
   }
-  for (i = 0, len = names.length; i < len; i++) {
-    if (names[i].test(name)) {
+  for(i = 0, len = names.length; i < len; i++) {
+    if(names[i].test(name))
       return true;
-    }
+
   }
   return false;
 }
@@ -105,7 +105,7 @@ function enabled(name) {
 
 
 function coerce(val) {
-  if (val instanceof Error) return val.stack || val.message;
+  if(val instanceof Error) return val.stack || val.message;
   return val;
 }
 
@@ -131,7 +131,7 @@ var log = function() {
     var formatter = formatters[format];
     if(typeof formatter === 'function') {
       var val = args[index];
-      match = formatter.call(self, val);
+      match = formatter.call(null, val);
 
       // now we need to remove `args[index]` since it's inlined in the `format`
       args.splice(index, 1);
@@ -172,7 +172,7 @@ var log = function() {
 
 
 function save(namespaces) {
-  if (null == namespaces) {
+  if(namespaces == null) {
     // If you set a process.env field to null or undefined, it gets cast to the
     // string 'null' or 'undefined'. Just delete instead.
     delete process.env.DEBUG;
