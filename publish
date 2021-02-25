@@ -1,0 +1,22 @@
+#!/bin/bash
+
+patch() {
+  version=$1
+  echo "Working with $version"
+  node -e "fs.writeFileSync('./package.json', JSON.stringify({...require('./package.json'), version : '$version'}, null, 2))";
+  npm publish
+}
+
+patch 0.7.4
+patch 2.2.0
+patch 2.3.2
+patch 2.3.3
+patch 2.6.8
+patch 2.6.9
+patch 3.1.0
+patch 4.1.0
+patch 4.1.1
+
+
+
+

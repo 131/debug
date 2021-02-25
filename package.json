@@ -1,6 +1,6 @@
 {
   "name": "debug",
-  "version": "0.7.4",
+  "version": "4.1.1",
   "description": "",
   "main": "./node.js",
   "scripts": {
