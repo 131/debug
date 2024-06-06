@@ -159,6 +159,9 @@ var log = function() {
 
   var namespace = this.namespace || 'console';
 
+  if(format == "json")
+    return exports.output(JSON.stringify({time, namespace, body}));
+
   var str = format
     .replace(':namespace', namespace)
     .replace(':time', time)
