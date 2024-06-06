@@ -17,7 +17,7 @@ exports.enable = enable;
 exports.enabled = enabled;
 exports.output  = function () {};
 
-const format   = process.env.DEBUG_FORMAT || ":time :namespace :body"; // :diff
+const format   = process.env.DEBUG_FORMAT || ":time :namespace :message"; // :diff
 
 
 if("DEBUG_INSPECT_BREAKLENGTH" in process.env) {
@@ -140,7 +140,7 @@ var log = function() {
     return match;
   });
 
-  var body = util.format.apply(this, args);
+  var message = util.format.apply(this, args);
   var now = new Date();
 
 
@@ -160,12 +160,13 @@ var log = function() {
   var namespace = this.namespace || 'console';
 
   if(format == "json")
-    return exports.output(JSON.stringify({time, namespace, body}));
+    return exports.output(JSON.stringify({time, namespace, message}));
 
   var str = format
     .replace(':namespace', namespace)
     .replace(':time', time)
-    .replace(':body', body)
+    .replace(':message', message)
+    .replace(':body', message)
     .replace(':diff', this.diff ? humanize(this.diff) : "");
 
   exports.output(str);
